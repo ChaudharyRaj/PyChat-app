@@ -1,0 +1,41 @@
+{% include 'header.html' %}
+{% include 'navigation.html' %}
+<body style="margin: 0px; height: 100%; overflow: hidden">
+<main id="main">
+      <section id="pricing" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <br>
+          <h3 class="section-title">Login</h3>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-lg-5 col-md-auto">
+            <div class="box featured wow fadeInUp">
+              <h3>Let's Chat</h3>
+                {% include 'includes/_flashmsg.html' %}
+                {% from "includes/_formhelpers.html" import render_field %}
+               <form  method="POST" action="">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="username" value={{request.form.username}}>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" value={{request.form.password}}>
+                  </div>
+                  <div class="form-group form-check">  
+                  </div>
+                  <button type="submit" class="get-started-btn" id="login-btn">Login</button>
+                </form>
+                <br>
+                 <a href="/register" class="get-started-btn">Get New Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- #pricing -->
+  </main>
+
+{% include 'footer.html' %}
+</body>
+
+
+</html>

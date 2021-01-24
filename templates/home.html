@@ -1,0 +1,32 @@
+{% include 'header.html' %}
+<body>
+{% include 'navigation.html' %}
+  <section id="intro">
+     {% if session.logged_in == NULL%}
+         <div class="intro-text">
+             <h2>Welcome to Python WebChat</h2>
+             <a href="/login" class="btn-get-started scrollto">Login</a>
+         </div>
+        {% else %}
+         <div class="intro-text">
+             <h2>Welcome to Python WebChat</h2>
+             <h1> {{ session.s_name }}</h1>
+             <a href="/chatting/{{ session.uid }}" class="btn-get-started scrollto">Let's Chat</a>
+         </div>
+     {% endif %}
+    <br>
+    <div class="product-screens">
+      <div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">
+        <img src="../static/img/product-screen-1.png" alt="">
+      </div>
+      <div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">
+        <img src="../static/img/product-screen-2.png" alt="">
+      </div>
+      <div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">
+        <img src="../static/img/product-screen-3.png" alt="">
+      </div>
+    </div>
+  </section>
+{% include 'footer.html' %}
+</body>
+</html>

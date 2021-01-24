@@ -1,0 +1,81 @@
+{% include 'header.html' %}
+<body style="overflow: hidden;">
+<script>
+    function ajax(){
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200)
+    {
+    document.getElementById('chats').innerHTML = req.responseText;
+    }
+    }
+    req.open('POST', '/chats', true);
+    req.send();
+    }
+    setInterval(function(){ajax()}, 10);
+</script>
+
+
+{% include 'navigation.html' %}
+  <!--==========================
+    Intro Section
+  ============================-->
+
+  <main id="main" style="margin-top: 15px;">
+    <section id="about" class="section-bg">
+        <div class="container-fluid" style="padding-left: 0px;">
+          <div class="row" onload="ajax();">
+              <div class="col-lg-3 about-img wow fadeInLeft" style="overflow-y: scroll;" style="padding-left: 0px;">
+                    <ul class="list-group" >
+                        {% for user in users %}
+                            {% if user.id != session.uid %}
+                              <li class="list-group-item"><a href="{{user.id}}"> {{user.name}} </a>
+                                {% if user.online != "0" %}
+                                    <span style="height: 12px;width: 12px;background-color: #1fc124;border-radius: 6px;
+                                    float: right;margin-top: 5px;"></span>
+                                {% else %}
+                                    <span style="height: 12px;width: 12px;background-color: #8a8a8a;border-radius: 6px;
+                                    float: right;margin-top: 5px;"></span>
+                                {% endif %}
+                              </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+              </div>
+              <div class="col-lg-9 about-img wow" style="overflow: scroll;" style="padding-left: 0px;">
+                {% if session.lid %}
+                    {% if session.name != session.s_name %}
+                        <div id="usernametop" class=" sticky-top alert alert-dark" style="border-color: #ffffff00;">
+                            <samp><img src="https://www.kkmm.gov.my/images/sub_bahagian/icon.png" alt="" class="" style="height: 35px;">&nbsp;&nbsp;{{ session.name}}</samp>
+                        </div>
+                         <div id="chats"></div>
+                        {% from "includes/_formhelpers.html" import render_field %}
+              </div>
+              <div class="col-md-9 ml-md-auto">
+                  <form class="form-inline"  method="POST" action="">
+                    <div class="form-group col-sm-11"  style="padding-left: 0px; padding-right: 0px;">
+                     {{render_field(form.body, class_="form-control", style="width: 100%", value="", placeholder="Type a Message")}}
+                    </div>
+                    <button type="submit"  class="btn btn-primarys">Send</button>
+                  </form>
+                </div>
+              {% else %}
+              <div class="col-lg-12 about-img wow" style="overflow: hidden;" style="padding-left: 0px;">
+                <div class="row align-content-center text-center" >
+                    <div class="col-lg-6 offset-3  wow  ">
+                      <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/laptop-wifi-2-980154.png" alt="">
+                      <p>Keep chat to Your friends and stay connected with them</p>
+                      <small>PyChat is web Chat application which is built in python framework Flask</small>
+                    </div>
+                </div>
+              </div>
+            {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    </section><!-- #about -->
+  </main>
+{% include 'footer.html' %}
+</body>
+</html>
